@@ -14,7 +14,6 @@ const siteMetadata = {
   email: 'address@yoursite.com',
   github: 'https://github.com',
   x: 'https://x.com/jasonidae',
-  // twitter: 'https://twitter.com/Twitter',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com',
