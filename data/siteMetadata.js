@@ -6,7 +6,7 @@ const siteMetadata = {
   description: '思绪如风。',
   language: 'zh-cn',
   theme: 'dark', // system, dark or light
-  siteUrl: 'https://blog-ideavercel.app',
+  siteUrl: 'https://blog-idea.vercel.app',
   // siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
