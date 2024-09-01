@@ -3,7 +3,7 @@ const siteMetadata = {
   title: 'Next.js Starter Blog',
   author: 'BigIdea',
   headerTitle: 'BigIdea-blog',
-  description: '思绪如风。',
+  description: '用来构建我的数字人----思绪如风。',
   language: 'zh-cn',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog-idea.vercel.app',
