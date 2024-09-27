@@ -1,0 +1,94 @@
+---
+title: 手写 Promise
+date: '2024-09-27'
+tags: ['JavaScript']
+draft: false
+summary: 手写一个简单的 Promise
+---
+
+# 什么是 Promise
+
+简单来说 Promise 是一个自动机器,可以按照预设的规则来执行对应的操作
+就是现在我正在等待 A 还我钱,期限是明天,但我 A 能否按时还我钱已经有了如下的计划
+
+- 正常还钱,自动把钱转给 C 因为我欠了 C 钱
+- 不正常还钱,报警
+
+  当我注册好这样的两个处理之后我就可以去做别的事情了,Promise 会自动帮我们完成.
+
+以上事件有两个概念. 一个概念是根据事件来确定两个状态(正常还钱和不正常还钱) 另外一个是对应的处理程序(转给 C 和报警)
+
+把这两个概念翻译成代码就是如下
+
+```js
+new Promise((resolve, rej) => {
+    setTimeout(() => {
+        getMoney ? resolve(moneyAmount) : rej(someReason);
+    }, 1day);
+}).then((money) => {
+    giveMoneyToC(money);
+}, (reason) => {
+    cal110(reason);
+});
+```
+
+# 1. 手写第一步,确定需要有哪些属性
+
+1.  状态属性. 用来表示当前 Promise 的状态,有三种状态 `pending` `fulfilled` `rejected`
+
+    - 规定只有两种状态变化规则,只能从 `pending` -> `fulfilled` 或者 `pending` -> `rejected`
+
+2.  handlers 数组,这个数组用来存储对应的处理程序,当 Promise 的状态发生变化时,会调用对应的处理程序
+
+    - 我们可以对一个 promise 的 fufilled 状态注册多个处理程序,他可以依次执行(注意和链式调用区分)
+
+3.  状态变化附带的 msg
+
+# 2. 编写 Promise 初始化函数
+
+Promise 的初始化参数是一个函数,初始化过程直接运行这个函数即可
+
+- 这个函数有两个参数代表修改 Promise 对应的状态, 因此我们需要写一个改变状态的方法传入进去
+
+## 2.1 编写改变状态的方法 resolve 和 reject
+
+- 直接修改状态属性和 msg 即可,并且调用对应的处理程序(用 runHandlers 方法暂时占位)
+  - 需要注意改变状态属性的方向性
+
+## 2.2 编写 then 注册处理函数
+
+- then 传入的是成功和失败的处理函数,我们需要把这两个函数存储到 handlers 数组中
+
+- then 返回的是一个新的 Promise(可以链式调用),我们需要返回一个新的 Promise
+  - 既然 then 返回的是一个新的 Promise,那么我们要确定这个 Promise 什么时候发生状态改变
+  - 因此我们不仅要存储处理程序,还要存储用于新的 Promise 的状态改变函数
+
+```js
+handlers.push({ onFulfilled, onRejected, resolve, reject })
+```
+
+# 3. 编写 runHandlers 方法
+
+特殊情况
+
+1. runhandler 方法只有在 state 不为 pending 的状态下执行
+2. handler 的具体执行应该在一个微队列里面进行(显然我们希望当结果出现之后尽可能优先的执行对应的结果,而微队列优先于宏队列执行). 具体方法先用 unMicroTask 占位
+
+具体编写
+
+- 我们需要遍历 handlers 数组,并且根据 state 的状态是 Fufilled 还是 reject 来执行对应的程序
+- 当遍历完对应的 handler 之后,我们需要清空当前的 handler
+
+## 3.1 何时调用 runhandler
+
+我们知道状态改变的时候会调用 handler,但有一些特殊情况
+
+- handler 数组是我们在 promise 初始化过后,收集 then 里面的操作获取到的. 由于 promise 初始化里面的 resolve 通常是一个异步操作,所以不影响我们对 handler 的收集.
+- 但如果 resolve 是一个同步操作,在执行 then 方法之前他的状态就已经改变了呢? 此时由于我们没有注册 handler 函数,所以不会有对应的 处理函数
+
+因此我们需要在加入处理 hanldler 函数的同时,检查这个 handler 是否可以直接执行.
+
+# 待续 一些特殊情况
+
+这里写的过程中,大多默认传递的 msg 是一个普通的值. 因此返回的结果会包装一层 Promise.
+但如果他是一个 Promise 的话,直接把这个 Promise 的状态传递给下一个 Promise 就可以了.
