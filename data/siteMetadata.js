@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
+  title: 'Huang Home',
   author: 'BigIdea',
   headerTitle: 'BigIdea-blog',
   description: '用来构建我的数字人----思绪如风。',
