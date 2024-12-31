@@ -1618,6 +1618,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.10.2":
+  version: 7.26.0
+  resolution: "@babel/runtime@npm:7.26.0"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: c8e2c0504ab271b3467a261a8f119bf2603eb857a0d71e37791f4e3fae00f681365073cc79f141ddaa90c6077c60ba56448004ad5429d07ac73532be9f7cf28a
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.8.4":
   version: 7.24.4
   resolution: "@babel/runtime@npm:7.24.4"
@@ -2221,6 +2230,24 @@ __metadata:
   version: 2.0.3
   resolution: "@humanwhocodes/object-schema@npm:2.0.3"
   checksum: d3b78f6c5831888c6ecc899df0d03bcc25d46f3ad26a11d7ea52944dc36a35ef543fad965322174238d677a43d5c694434f6607532cff7077062513ad7022631
+  languageName: node
+  linkType: hard
+
+"@iconify/react@npm:^5":
+  version: 5.1.0
+  resolution: "@iconify/react@npm:5.1.0"
+  dependencies:
+    "@iconify/types": ^2.0.0
+  peerDependencies:
+    react: ">=16"
+  checksum: 2b763c774b41d9322449a0cf19b91e3368234a424e969b32790540fbe0ea5ceb83c132a9ec5a9c03f25f869a6bf9394257b6118d38959e36a8943218f2c786da
+  languageName: node
+  linkType: hard
+
+"@iconify/types@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@iconify/types@npm:2.0.0"
+  checksum: 029f58542c160e9d4a746869cf2e475b603424d3adf3994c5cc8d0406c47e6e04a3b898b2707840c1c5b9bd5563a1660a34b110d89fce43923baca5222f4e597
   languageName: node
   linkType: hard
 
@@ -9476,6 +9503,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-h5-audio-player@npm:^3.10.0-rc.1":
+  version: 3.10.0-rc.1
+  resolution: "react-h5-audio-player@npm:3.10.0-rc.1"
+  dependencies:
+    "@babel/runtime": ^7.10.2
+    "@iconify/react": ^5
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: d785677aa1d0a710638711ca3b5f6fb608fd5e5195010044beb42486012c8b75729fd563a7ceacb0a3cc205e56558c800457f5a9cc10a99a6a99c52b2271adf0
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -10938,6 +10978,7 @@ __metadata:
     prettier-plugin-tailwindcss: ^0.5.11
     react: 18.3.1
     react-dom: 18.3.1
+    react-h5-audio-player: ^3.10.0-rc.1
     reading-time: 1.5.0
     rehype-autolink-headings: ^7.1.0
     rehype-citation: ^2.0.0
